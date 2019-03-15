@@ -91,7 +91,7 @@ class Bus_Products_Import{
         //поиск товарного предложения в базе
         $productOfferFilter = [
             "IBLOCK_ID"=> $iblock_id,
-            'PROPERTY_174' => $productOfferMassive['ID'],
+            'PROPERTY_174' => $productOfferMassive['ID'], //ID на сайте
         ];
         $productOfferSelect = [
             /* 'ID','NAME',"IBLOCK_SECTION_ID",'DETAIL_TEXT','DETAIL_PICTURE','PURCHASING_PRICE'*/
@@ -104,12 +104,82 @@ class Bus_Products_Import{
 
             $createSaleOfferFields = [
                 'NAME' => $productOfferMassive['NAME'],
-                //'MEASURE' => 5, //Ед. измерения, шт.
+                'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
+                //'PREVIEW_PICTURE' => $productOfferMassive['DETAIL_PICTURE_PATH'], //картинка маленькая
+                //'DETAIL_PICTURE' => $productOfferMassive['DETAIL_PICTURE_PATH'], //картинка большая
+                'PRICE' => $productOfferMassive['CATALOG_PRICE_1'],
                 "PROPERTY_VALUES" => [
-                    '174' => $productOfferMassive['ID'], //Укр Название
+                    '174' => $productOfferMassive['ID'], //ID в БУС
+                    '175' => $productOfferMassive['PROPERTY_123_VALUE'], //Длина
+                    '176' => $productOfferMassive['PROPERTY_122_VALUE'], //Ширина
+                    '177' => $productOfferMassive['PROPERTY_124_VALUE'], //ШифрТМЦ (Шифр)
+                    '178' => $productOfferMassive['PROPERTY_172_VALUE'], //Размер спального места
+                    '179' => $productOfferMassive['PROPERTY_173_VALUE'], //Выбор патины
+                    '180' => $productOfferMassive['PROPERTY_174_VALUE'], //Выбор цвета
+                    '181' => $productOfferMassive['PROPERTY_175_VALUE'], //Стиль кровати
+                    '182' => $productOfferMassive['PROPERTY_176_VALUE'], //Кровать для
+                    '183' => $productOfferMassive['PROPERTY_177_VALUE'], //Габариты ШхГхВ, см
+                    '184' => $productOfferMassive['PROPERTY_178_VALUE'], //Выбор ткани
+                    '185' => $productOfferMassive['PROPERTY_179_VALUE'], //Размер каркаса, см
+                    '186' => $productOfferMassive['PROPERTY_180_VALUE'], //Жесткость
+                    '187' => $productOfferMassive['PROPERTY_181_VALUE'], //Количество ламелей
+                    '188' => $productOfferMassive['PROPERTY_182_VALUE'], //Ширина ламели, мм
+                    '189' => $productOfferMassive['PROPERTY_183_VALUE'], //Расстояние между ламелями
+                    '190' => $productOfferMassive['PROPERTY_184_VALUE'], //Высота каркаса
+                    '191' => $productOfferMassive['PROPERTY_185_VALUE'], //Размер в разложенном виде, см
+                    '192' => $productOfferMassive['PROPERTY_186_VALUE'], //Размер в сложенном виде, см
+                    '193' => $productOfferMassive['PROPERTY_187_VALUE'], //Размер матраса
+                    '194' => $productOfferMassive['PROPERTY_188_VALUE'], //Основа матраса
+                    '195' => $productOfferMassive['PROPERTY_189_VALUE'], //Тип спального места
+                    '196' => $productOfferMassive['PROPERTY_190_VALUE'], //Высота матраса
+                    '197' => $productOfferMassive['PROPERTY_191_VALUE'], //Жесткость матраса
+                    '198' => $productOfferMassive['PROPERTY_192_VALUE'], //Максимальный вес
+                    '199' => $productOfferMassive['PROPERTY_193_VALUE'], //Ткань чехла
+                    '200' => $productOfferMassive['PROPERTY_194_VALUE'], //Особенности ткани
+                    '201' => $productOfferMassive['PROPERTY_195_VALUE'], //Рулонный
+                    '202' => $productOfferMassive['PROPERTY_196_VALUE'], //Эффект зима-лето
+                    '203' => $productOfferMassive['PROPERTY_197_VALUE'], //Механизм трансформации
+                    '204' => $productOfferMassive['PROPERTY_198_VALUE'], //Модель матраса
+                    '205' => $productOfferMassive['PROPERTY_199_VALUE'], //Размер сложенный, см
+                    '206' => $productOfferMassive['PROPERTY_200_VALUE'], //Размер разложенный, см
+                    '207' => $productOfferMassive['PROPERTY_201_VALUE'], //Размер подушки, см
+                    '208' => $productOfferMassive['PROPERTY_202_VALUE'], //Чехол
+                    '209' => $productOfferMassive['PROPERTY_203_VALUE'], //Наполнитель
+                    '210' => $productOfferMassive['PROPERTY_204_VALUE'], //Тип подушки
+                    '211' => $productOfferMassive['PROPERTY_205_VALUE'], //Форма подушки
+                    '212' => $productOfferMassive['PROPERTY_206_VALUE'], //Высота подушки
+                    '213' => $productOfferMassive['PROPERTY_207_VALUE'], //Назначение подушки
+                    '214' => $productOfferMassive['PROPERTY_208_VALUE'], //Размер одеяла, см
+                    '215' => $productOfferMassive['PROPERTY_209_VALUE'], //Наполнитель одеяла
+                    '216' => $productOfferMassive['PROPERTY_210_VALUE'], //Сезон одеяла
+                    '217' => $productOfferMassive['PROPERTY_211_VALUE'], //Наполнитель наматрасника
+                    '218' => $productOfferMassive['PROPERTY_212_VALUE'], //Высота наматрасника
+                    '219' => $productOfferMassive['PROPERTY_213_VALUE'], //Жесткость наматрасника
+                    '220' => $productOfferMassive['PROPERTY_214_VALUE'], //Цвет наматрасника
+                    '221' => $productOfferMassive['PROPERTY_215_VALUE'], //Состав наматрасника
+                    '222' => $productOfferMassive['PROPERTY_250_VALUE'], //Сторона дивана
+                    '223' => $productOfferMassive['PROPERTY_618_VALUE'], //Категория кроватей
+                    '224' => $productOfferMassive['PROPERTY_502_VALUE'], //Не стандарт
+                    '225' => $productOfferMassive['PROPERTY_525_VALUE'], //Размер наматрасника
+                    '226' => $productOfferMassive['PROPERTY_589_VALUE'], //Размер подматрасника
+                    '227' => $productOfferMassive['PROPERTY_523_VALUE'], //Размер топпера
+                    '228' => $productOfferMassive['PROPERTY_226_VALUE'], //РозничнаяЦена
+                    '229' => $productOfferMassive['PROPERTY_531_VALUE'], //Чехол одеяла
                 ],
             ];
+
+
+            //Если поле картиинки не пустое, то при создании заполняем картинку
+            if(!empty($productOfferMassive['DETAIL_PICTURE_PATH'])){
+                $newImgId = $this->getIncomeFile($productOfferMassive['DETAIL_PICTURE_PATH']);
+                $createSaleOfferFields['DETAIL_PICTURE'] = $newImgId;
+                $createSaleOfferFields['PREVIEW_PICTURE'] = $newImgId;
+                // $this->log(array($productData['IMAGE'],$createProdFields));
+            }
+
+
+
             $createSaleOfferResID = $this->createNewProductWithProp($createSaleOfferFields); //возвращает ID нов. товара
             if(!$createSaleOfferResID) $result['message'] = $productOfferMassive['ID'].' '.$productOfferMassive['NAME'].' sale offer isn\'t created!';
             else{
@@ -117,6 +187,10 @@ class Bus_Products_Import{
                 //Если товарное предложение успешно создано, то обновляем то, что не заполнилось при создании (Доступное кол-во, например)
                 $result['result'] = $createSaleOfferResID;
                 $result['message'] = /*$productOfferMassive['ID'].' '.*/$productOfferMassive['NAME'].' sale offer imported successfully as #'.$createSaleOfferResID.'!';
+
+                //обновляем базовую цену
+                $this->setBaseCurrency($createSaleOfferResID,$productOfferMassive['CATALOG_PRICE_1'],'UAH');
+
 
                 $updateSaleOfferFields = [
                   'QUANTITY' => $productOfferMassive['CATALOG_QUANTITY'], //доступное количество
@@ -136,10 +210,65 @@ class Bus_Products_Import{
 
             $updateSaleOfferFields = [
                 'NAME' => $productOfferMassive['NAME'],
-                //'MEASURE' => 5, //Ед. измерения, шт.
+                'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
                 "PROPERTY_VALUES" => [
                     '174' => $productOfferMassive['ID'], //ID в БУС
+                    '175' => $productOfferMassive['PROPERTY_123_VALUE'], //Длина
+                    '176' => $productOfferMassive['PROPERTY_122_VALUE'], //Ширина
+                    '177' => $productOfferMassive['PROPERTY_124_VALUE'], //ШифрТМЦ (Шифр)
+                    '178' => $productOfferMassive['PROPERTY_172_VALUE'], //Размер спального места
+                    '179' => $productOfferMassive['PROPERTY_173_VALUE'], //Выбор патины
+                    '180' => $productOfferMassive['PROPERTY_174_VALUE'], //Выбор цвета
+                    '181' => $productOfferMassive['PROPERTY_175_VALUE'], //Стиль кровати
+                    '182' => $productOfferMassive['PROPERTY_176_VALUE'], //Кровать для
+                    '183' => $productOfferMassive['PROPERTY_177_VALUE'], //Габариты ШхГхВ, см
+                    '184' => $productOfferMassive['PROPERTY_178_VALUE'], //Выбор ткани
+                    '185' => $productOfferMassive['PROPERTY_179_VALUE'], //Размер каркаса, см
+                    '186' => $productOfferMassive['PROPERTY_180_VALUE'], //Жесткость
+                    '187' => $productOfferMassive['PROPERTY_181_VALUE'], //Количество ламелей
+                    '188' => $productOfferMassive['PROPERTY_182_VALUE'], //Ширина ламели, мм
+                    '189' => $productOfferMassive['PROPERTY_183_VALUE'], //Расстояние между ламелями
+                    '190' => $productOfferMassive['PROPERTY_184_VALUE'], //Высота каркаса
+                    '191' => $productOfferMassive['PROPERTY_185_VALUE'], //Размер в разложенном виде, см
+                    '192' => $productOfferMassive['PROPERTY_186_VALUE'], //Размер в сложенном виде, см
+                    '193' => $productOfferMassive['PROPERTY_187_VALUE'], //Размер матраса
+                    '194' => $productOfferMassive['PROPERTY_188_VALUE'], //Основа матраса
+                    '195' => $productOfferMassive['PROPERTY_189_VALUE'], //Тип спального места
+                    '196' => $productOfferMassive['PROPERTY_190_VALUE'], //Высота матраса
+                    '197' => $productOfferMassive['PROPERTY_191_VALUE'], //Жесткость матраса
+                    '198' => $productOfferMassive['PROPERTY_192_VALUE'], //Максимальный вес
+                    '199' => $productOfferMassive['PROPERTY_193_VALUE'], //Ткань чехла
+                    '200' => $productOfferMassive['PROPERTY_194_VALUE'], //Особенности ткани
+                    '201' => $productOfferMassive['PROPERTY_195_VALUE'], //Рулонный
+                    '202' => $productOfferMassive['PROPERTY_196_VALUE'], //Эффект зима-лето
+                    '203' => $productOfferMassive['PROPERTY_197_VALUE'], //Механизм трансформации
+                    '204' => $productOfferMassive['PROPERTY_198_VALUE'], //Модель матраса
+                    '205' => $productOfferMassive['PROPERTY_199_VALUE'], //Размер сложенный, см
+                    '206' => $productOfferMassive['PROPERTY_200_VALUE'], //Размер разложенный, см
+                    '207' => $productOfferMassive['PROPERTY_201_VALUE'], //Размер подушки, см
+                    '208' => $productOfferMassive['PROPERTY_202_VALUE'], //Чехол
+                    '209' => $productOfferMassive['PROPERTY_203_VALUE'], //Наполнитель
+                    '210' => $productOfferMassive['PROPERTY_204_VALUE'], //Тип подушки
+                    '211' => $productOfferMassive['PROPERTY_205_VALUE'], //Форма подушки
+                    '212' => $productOfferMassive['PROPERTY_206_VALUE'], //Высота подушки
+                    '213' => $productOfferMassive['PROPERTY_207_VALUE'], //Назначение подушки
+                    '214' => $productOfferMassive['PROPERTY_208_VALUE'], //Размер одеяла, см
+                    '215' => $productOfferMassive['PROPERTY_209_VALUE'], //Наполнитель одеяла
+                    '216' => $productOfferMassive['PROPERTY_210_VALUE'], //Сезон одеяла
+                    '217' => $productOfferMassive['PROPERTY_211_VALUE'], //Наполнитель наматрасника
+                    '218' => $productOfferMassive['PROPERTY_212_VALUE'], //Высота наматрасника
+                    '219' => $productOfferMassive['PROPERTY_213_VALUE'], //Жесткость наматрасника
+                    '220' => $productOfferMassive['PROPERTY_214_VALUE'], //Цвет наматрасника
+                    '221' => $productOfferMassive['PROPERTY_215_VALUE'], //Состав наматрасника
+                    '222' => $productOfferMassive['PROPERTY_250_VALUE'], //Сторона дивана
+                    '223' => $productOfferMassive['PROPERTY_618_VALUE'], //Категория кроватей
+                    '224' => $productOfferMassive['PROPERTY_502_VALUE'], //Не стандарт
+                    '225' => $productOfferMassive['PROPERTY_525_VALUE'], //Размер наматрасника
+                    '226' => $productOfferMassive['PROPERTY_589_VALUE'], //Размер подматрасника
+                    '227' => $productOfferMassive['PROPERTY_523_VALUE'], //Размер топпера
+                    '228' => $productOfferMassive['PROPERTY_226_VALUE'], //РозничнаяЦена
+                    '229' => $productOfferMassive['PROPERTY_531_VALUE'], //Чехол одеяла
                 ],
             ];
             $updateSaleOfferResID = $this->updateProduct($productOfferSearchRes[0]['ID'],$updateSaleOfferFields); //true/false
@@ -147,6 +276,10 @@ class Bus_Products_Import{
             else{
                 $result['result'] = $updateSaleOfferResID;
                 $result['message'] = /*$productOfferMassive['ID'].' '.*/$productOfferMassive['NAME'].' sale offer updated!';
+
+                //обновляем базовую цену
+                $this->setBaseCurrency($productOfferSearchRes[0]['ID'],$productOfferMassive['CATALOG_PRICE_1'],'UAH');
+
 
                 //Если обновлено товарное предложение, то обновляем и его поля
                 $updateSaleOfferFields = [
@@ -221,9 +354,30 @@ class Bus_Products_Import{
         return $res = CCatalogProduct::Update($prodId, $fields);
     }
 
+    //Пробуем записать правильно Валюту Базовой цены (пока именно она не меняется)
+    private function setBaseCurrency($productId,$basePrice,$baseCurrency){
+        return CPrice::SetBasePrice($productId,$basePrice,$baseCurrency);
+    }
+
+    // картинки он сохраняет в свою папку и отдает ее ID
+    private function getIncomeFile($foreignPath){
+        return $newId = CFile::MakeFileArray($foreignPath);
+    }
+
     //метод логирования данных
-    public function logging($data){
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/Products_Sale_Offers.log';
+    public function logging($flag,$data){
+        switch ($flag){
+            case 3: //test
+                $filename = 'Products_Sale_Offers.log';
+                break;
+            case 2: //wrong action
+                $filename = 'Wrong_Actions.log';
+                break;
+            case 1: //Error while import
+                $filename = 'Import_Error.log';
+                break;
+        }
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/'.$filename;
         file_put_contents($file, print_r(array('date' => date('d.m.Y H:i:s'),$data), true), FILE_APPEND | LOCK_EX);
     }
 

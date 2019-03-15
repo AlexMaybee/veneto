@@ -85,7 +85,143 @@ print_r($products);
 echo '</pre>';*/
 
 
-$sent_res = sentDataToCRM(['action' => 'import_products_and_sale_offers', 'products' => $products]);
+$realTestMassive = [
+    [
+        'ID' => 71246,
+        'NAME' => 'Ортопедичний диван «Кларк»',
+        'SALE_OFFERS' => [
+            67072 => [
+                'ID' => 67072,
+                'NAME' => 'Ортопедический прямой диван «Кларк», Magelan Tourqoise',
+                'PROPERTY_122_VALUE' => '1800', //Ширина
+                'PROPERTY_123_VALUE' => '2000', //Длина
+                'PROPERTY_124_VALUE' => '0950123123', //ШифрТМЦ (Шифр)
+                'PROPERTY_172_VALUE' => '140х200', //Размер спального места
+                'PROPERTY_173_VALUE' => 'Можна выбрать', //Выбор патины
+                'PROPERTY_174_VALUE' => 'Magelan Tourqoise', //Выбор цвета
+                'PROPERTY_175_VALUE' => 'Модерн', //Стиль кровати
+                'PROPERTY_176_VALUE' => 'Взрослых', //Кровать для
+                'PROPERTY_177_VALUE' => '1800x2000x500', //Габариты ШхГхВ, см
+                'PROPERTY_178_VALUE' => 'Seattle', //Выбор ткани
+                'PROPERTY_179_VALUE' => '120х190', //Размер каркаса, см
+                'PROPERTY_180_VALUE' => 'Medium', //Жесткость
+                'CATALOG_PRICE_1' => 29028.30, //Базовая цена (Тип цены "Цена") в торговый каталог - цены
+                'CATALOG_QUANTITY' => 25, //Доступное количество в торговый каталог - параметры
+                'PROPERTY_181_VALUE' => '26+8 дополнительных', //Количество ламелей
+                'PROPERTY_182_VALUE' => 68, //Ширина ламели, мм
+                'PROPERTY_183_VALUE' => 'Расстояние между ламелями lalala', //Расстояние между ламелями
+                'PROPERTY_184_VALUE' => 'Высота каркаса nanana', //Высота каркаса
+                'PROPERTY_185_VALUE' => '80х190', //Размер в разложенном виде, см
+                'PROPERTY_186_VALUE' => '80х30х108', //Размер в сложенном виде, см
+                'PROPERTY_187_VALUE' => '160x190', //Размер матраса
+                'PROPERTY_188_VALUE' => 'Беспружинный', //Основа матраса
+                'PROPERTY_189_VALUE' => 'Двуспальное', //Тип спального места
+                'PROPERTY_190_VALUE' => '24 см', //Высота матраса
+                'PROPERTY_191_VALUE' => 'Hard / Medium+', //Жесткость матраса
+                'PROPERTY_192_VALUE' => 'Слонячий', //Максимальный вес
+                'PROPERTY_193_VALUE' => 'Cтеганый стретчевый чехол', //Ткань чехла
+                'PROPERTY_194_VALUE' => 'Антибактериальная', //Особенности ткани
+                'PROPERTY_195_VALUE' => 'Так', //Рулонный
+                'PROPERTY_196_VALUE' => 'Да', //Эффект зима-лето
+                'PROPERTY_197_VALUE' => 'Клик-кляк', //Механизм трансформации
+                'PROPERTY_198_VALUE' => 'Классический пуговичный', //Модель матраса
+                'PROPERTY_199_VALUE' => '2000x1500 см', //Размер сложенный, см
+                'PROPERTY_200_VALUE' => '2000x3500 см', //Размер разложенный, см
+                'PROPERTY_201_VALUE' => '74х42х12', //Размер подушки, см
+                'PROPERTY_202_VALUE' => 'Biorytmic Sleep, съемный с молнией', //Чехол
+                'PROPERTY_203_VALUE' => 'Натуральный латекс', //Наполнитель
+                'PROPERTY_204_VALUE' => 'Подушки для диванов', //Тип подушки
+                'PROPERTY_205_VALUE' => 'Прямоугольная', //Форма подушки
+                'PROPERTY_206_VALUE' => 'Низкая', //Высота подушки
+                'PROPERTY_207_VALUE' => 'Никакое', //Назначение подушки
+                'PROPERTY_208_VALUE' => '172х205', //Размер одеяла, см
+                'PROPERTY_209_VALUE' => 'Шерсть', //Наполнитель одеяла
+                'PROPERTY_210_VALUE' => '4 сезона', //Сезон одеяла
+                'PROPERTY_211_VALUE' => 'Memory Flex', //Наполнитель наматрасника
+                'PROPERTY_212_VALUE' => '6', //Высота наматрасника
+                'PROPERTY_213_VALUE' => 'Soft', //Жесткость наматрасника
+                'PROPERTY_214_VALUE' => 'ЧОрный', //Цвет наматрасника
+                'PROPERTY_215_VALUE' => 'Ничо так! Даже ошень!', //Состав наматрасника
+                'PROPERTY_250_VALUE' => 'Правый угол', //Сторона дивана
+                'PROPERTY_618_VALUE' => 'Односпальные кровати', //Категория кроватей
+                'PROPERTY_502_VALUE' => 'Нестандарт', //Не стандарт checkbox
+                'PROPERTY_525_VALUE' => '140x190', //Размер наматрасника
+                'PROPERTY_589_VALUE' => '150х200', //Размер подматрасника
+                'PROPERTY_523_VALUE' => '160x190', //Размер топпера
+                'PROPERTY_226_VALUE' => '22328.3333', //РозничнаяЦена (РозничнаяЦена)
+                'PROPERTY_531_VALUE' => '100% хлопок', //Чехол одеяла
+                'DETAIL_PICTURE_PATH' => 'https://veneto.ua/upload/iblock/c98/c98fda0ab300360c12de43f9edd6a02f.jpg', //путь к картинке
+            ],
+            71247 => [
+                'ID' => 71247,
+                'NAME' => 'Ортопедический прямой диван «Кларк», Queens Chocolate',
+                'PROPERTY_122_VALUE' => '800', //Ширина
+                'PROPERTY_123_VALUE' => '4000', //Длина
+                'PROPERTY_124_VALUE' => '095015637', //ШифрТМЦ (Шифр)
+                'PROPERTY_172_VALUE' => '140х200', //Размер спального места
+                'PROPERTY_173_VALUE' => 'Можна выбрать', //Выбор патины
+                'PROPERTY_174_VALUE' => 'Magelan Tourqoise', //Выбор цвета
+                'PROPERTY_175_VALUE' => 'Модерн', //Стиль кровати
+                'PROPERTY_176_VALUE' => 'Взрослых', //Кровать для
+                'PROPERTY_177_VALUE' => '1800x2000x500', //Габариты ШхГхВ, см
+                'PROPERTY_178_VALUE' => 'Seattle', //Выбор ткани
+                'PROPERTY_179_VALUE' => '120х190', //Размер каркаса, см
+                'PROPERTY_180_VALUE' => 'Medium', //Жесткость
+                'CATALOG_PRICE_1' => 29028.30, //Базовая цена (Тип цены "Цена") в торговый каталог - цены
+                'CATALOG_QUANTITY' => 25, //Доступное количество в торговый каталог - параметры
+                'PROPERTY_181_VALUE' => '26+8 дополнительных', //Количество ламелей
+                'PROPERTY_182_VALUE' => 68, //Ширина ламели, мм
+                'PROPERTY_183_VALUE' => 'Расстояние между ламелями lalala', //Расстояние между ламелями
+                'PROPERTY_184_VALUE' => 'Высота каркаса nanana', //Высота каркаса
+                'PROPERTY_185_VALUE' => '80х190', //Размер в разложенном виде, см
+                'PROPERTY_186_VALUE' => '80х30х108', //Размер в сложенном виде, см
+                'PROPERTY_187_VALUE' => '160x190', //Размер матраса
+                'PROPERTY_188_VALUE' => 'Беспружинный', //Основа матраса
+                'PROPERTY_189_VALUE' => 'Двуспальное', //Тип спального места
+                'PROPERTY_190_VALUE' => '24 см', //Высота матраса
+                'PROPERTY_191_VALUE' => 'Hard / Medium+', //Жесткость матраса
+                'PROPERTY_192_VALUE' => 'Слонячий', //Максимальный вес
+                'PROPERTY_193_VALUE' => 'Cтеганый стретчевый чехол', //Ткань чехла
+                'PROPERTY_194_VALUE' => 'Антибактериальная', //Особенности ткани
+                'PROPERTY_195_VALUE' => 'Так', //Рулонный
+                'PROPERTY_196_VALUE' => 'Да', //Эффект зима-лето
+                'PROPERTY_197_VALUE' => 'Клик-кляк', //Механизм трансформации
+                'PROPERTY_198_VALUE' => 'Классический пуговичный', //Модель матраса
+                'PROPERTY_199_VALUE' => '2000x1500 см', //Размер сложенный, см
+                'PROPERTY_200_VALUE' => '2000x3500 см', //Размер разложенный, см
+                'PROPERTY_201_VALUE' => '74х42х12', //Размер подушки, см
+                'PROPERTY_202_VALUE' => 'Biorytmic Sleep, съемный с молнией', //Чехол
+                'PROPERTY_203_VALUE' => 'Натуральный латекс', //Наполнитель
+                'PROPERTY_204_VALUE' => 'Подушки для диванов', //Тип подушки
+                'PROPERTY_205_VALUE' => 'Прямоугольная', //Форма подушки
+                'PROPERTY_206_VALUE' => 'Низкая', //Высота подушки
+                'PROPERTY_207_VALUE' => 'Никакое', //Назначение подушки
+                'PROPERTY_208_VALUE' => '172х205', //Размер одеяла, см
+                'PROPERTY_209_VALUE' => 'Шерсть', //Наполнитель одеяла
+                'PROPERTY_210_VALUE' => '4 сезона', //Сезон одеяла
+                'PROPERTY_211_VALUE' => 'Memory Flex', //Наполнитель наматрасника
+                'PROPERTY_212_VALUE' => '6', //Высота наматрасника
+                'PROPERTY_213_VALUE' => 'Soft', //Жесткость наматрасника
+                'PROPERTY_214_VALUE' => 'Жоско! Ошень!', //Цвет наматрасника
+                'PROPERTY_215_VALUE' => 'Ничо так! Даже ошень!', //Состав наматрасника
+                'PROPERTY_250_VALUE' => 'Правый угол', //Сторона дивана
+                'PROPERTY_618_VALUE' => 'Односпальные кровати', //Категория кроватей
+                'PROPERTY_502_VALUE' => 'Нестандарт', //Не стандарт checkbox
+                'PROPERTY_525_VALUE' => '140x190', //Размер наматрасника
+                'PROPERTY_589_VALUE' => '150х200', //Размер подматрасника
+                'PROPERTY_523_VALUE' => '160x190', //Размер топпера
+                'PROPERTY_226_VALUE' => '22328.3333', //РозничнаяЦена (РозничнаяЦена)
+                'PROPERTY_531_VALUE' => '100% хлопок', //Чехол одеяла
+                'DETAIL_PICTURE_PATH' => 'https://veneto.ua/upload/iblock/c98/c98fda0ab300360c12de43f9edd6a02f.jpg', //путь к картинке
+            ],
+        ],
+    ],
+];
+
+
+
+//$sent_res = sentDataToCRM(['action' => 'import_products_and_sale_offers', 'products' => $products]);
+$sent_res = sentDataToCRM(['action' => 'import_products_and_sale_offers', 'products' => $realTestMassive]);
 print_r($sent_res);
 
 
@@ -108,6 +244,7 @@ function getProducts($iblock){
     return $products;
 }
 
+//получение товарных предложений
 function getSaleOffersByFilter($prodID,$offerFields){
     $iblockId = 9;
     $offersFilter = array('ACTIVE' => 'Y', 'ACTIVE_DATE' => 'Y', '>CATALOG_PRICE_1' => 0);
@@ -117,11 +254,10 @@ function getSaleOffersByFilter($prodID,$offerFields){
     return $res;
 }
 
-
+//отправка данных в crm, подключение выше
 function sentDataToCRM($queryData){
     $httpClient = new HttpClient();
     $httpClient->setHeader('Content-Type', 'application/json', true);
-    //$result = $httpClient->post('https://everydayfitness.com.ua/api/'.$url, json_encode($queryData));
     $result = $httpClient->post('https://crm.veneto.ua/local/lib/bus_products_sinkhron/index.php', json_encode($queryData));
     return json_decode($result);
 }
