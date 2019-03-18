@@ -5,39 +5,35 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_be
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/class.php');
 
-//echo 'YOYOYO!0'; \home\bitrix\ext_www\crm.veneto.ua\local\lib\bus_products_sinkhron\class.php
 
 CModule::IncludeModule('crm');
 CModule::IncludeModule('iblock');
 CModule::IncludeModule('catalog'); //это для типа цен
 
 
-
 $obj = new Bus_Products_Import;
-//$obj->testFunction();
-
 
 $data = json_decode(file_get_contents("php://input"));
 $data = json_decode(json_encode($data), true);
-
-
-$log_res = $obj->logging(3,$data); //тестовое логирование
 
 
 if($data['action'] == 'import_products_and_sale_offers'){
 
 
     $mainResult = $obj->mainSinkhronMethod($data['products']);
+   // echo json_encode(['date' => date('d.m.Y H:i:s'), $mainResult['result'],$mainResult['message']]); //ответ
+    echo json_encode(array('date' => date('d.m.Y H:i:s'), 'data' => $mainResult)); //ответ
     if(!$mainResult['result']){
         $obj->logging(1,[$mainResult,$data['products']]);
     }
-    echo json_encode(['date' => date('d.m.Y H:i:s'), $mainResult['result'],$mainResult['message']]); //ответ
+
 }
 else{
-    $obj->logging(2,['action' => $data['action'],'error' => 'Request error: wrong request action!']);
     echo json_encode($error = ['date' => date('d.m.Y H:i:s'),'error' => 'Request error: wrong request action!']);
-}
+    $obj->logging(2,['action' => $data['action'],'error' => 'Request error: wrong request action!']);
 
+}
+//$log_res = $obj->logging(3,$data); //тестовое логирование
 
 
 //старт работ по сохранению товаров и товарных предложений

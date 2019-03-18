@@ -60,12 +60,12 @@ class Bus_Products_Import{
 
                 //в цикле проверяем все товарные предложения на существование, если находим, то обновляем
                 //в цикле проверяем все товарные предложения на существование, если находим, то обновляем
-                foreach ($product_massive['SALE_OFFERS'] as $key => $sale_off){
-                    $resu = $this->workWithProductOffers($sale_off,$iblock_id,$catalog_id);
-                    if(!$resu['result']) $result['message'][$sale_off['ID']] = $resu['message'];
+                foreach ($product_massive['SALE_OFFERS'] as $key => $sale_off2){
+                    $resu = $this->workWithProductOffers($sale_off2,$iblock_id,$catalog_id);
+                    if(!$resu['result']) $result['message'][$sale_off2['ID']] = $resu['message'];
                     else{
                         //$sale_offers_result['result'][] = $resu['result'];
-                        $result['result'][$sale_off['ID']] = $resu['message'];
+                        $result['result'][$sale_off2['ID']] = $resu['message'];
                     }
                 }
 
@@ -106,6 +106,8 @@ class Bus_Products_Import{
                 'NAME' => $productOfferMassive['NAME'],
                 'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
+//                'DETAIL_TEXT' => $productOfferMassive['PARENT_PRODUCT_DESCR'],//описание вставлено из товара (который здесь является разделом)
+//                "DETAIL_TEXT_TYPE" => 'html',
                 //'PREVIEW_PICTURE' => $productOfferMassive['DETAIL_PICTURE_PATH'], //картинка маленькая
                 //'DETAIL_PICTURE' => $productOfferMassive['DETAIL_PICTURE_PATH'], //картинка большая
                 'PRICE' => $productOfferMassive['CATALOG_PRICE_1'],
@@ -193,7 +195,8 @@ class Bus_Products_Import{
 
 
                 $updateSaleOfferFields = [
-                  'QUANTITY' => $productOfferMassive['CATALOG_QUANTITY'], //доступное количество
+                    'PRICE' => $productOfferMassive['CATALOG_PRICE_1'],
+                    'QUANTITY' => $productOfferMassive['CATALOG_QUANTITY'], //доступное количество
                 ];
                 $updateSaleOfferRes = $this->updateProductFields($createSaleOfferResID,$updateSaleOfferFields);
                 if(!$updateSaleOfferRes) $result['message'] .= ' Quantity isn\'t updated!';
@@ -212,6 +215,9 @@ class Bus_Products_Import{
                 'NAME' => $productOfferMassive['NAME'],
                 'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
+//                'DETAIL_TEXT' => $productOfferMassive['PARENT_PRODUCT_DESCR'],//описание вставлено из товара (который здесь является разделом)
+//                "DETAIL_TEXT_TYPE" => 'html',
+                'PRICE' => $productOfferMassive['CATALOG_PRICE_1'], //Базовая цена
                 "PROPERTY_VALUES" => [
                     '174' => $productOfferMassive['ID'], //ID в БУС
                     '175' => $productOfferMassive['PROPERTY_123_VALUE'], //Длина
@@ -366,6 +372,7 @@ class Bus_Products_Import{
 
     //метод логирования данных
     public function logging($flag,$data){
+
         switch ($flag){
             case 3: //test
                 $filename = 'Products_Sale_Offers.log';
@@ -375,6 +382,9 @@ class Bus_Products_Import{
                 break;
             case 1: //Error while import
                 $filename = 'Import_Error.log';
+                break;
+            default:
+                $filename = 'Default.log';
                 break;
         }
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/'.$filename;
