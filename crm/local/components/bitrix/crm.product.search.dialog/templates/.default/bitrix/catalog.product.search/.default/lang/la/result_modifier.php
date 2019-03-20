@@ -1,0 +1,5 @@
+<?
+$MESS["CRM_PRODUCT_PROP_ENLARGE"] = "Agrandar";
+$MESS["CRM_PRODUCT_PROP_DOWNLOAD"] = "Descargar";
+$MESS["CRM_COLUMN_PRODUCT_PRICE"] = "Precio";
+?>
