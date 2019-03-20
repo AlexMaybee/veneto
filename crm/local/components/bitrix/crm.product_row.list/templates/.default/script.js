@@ -606,7 +606,7 @@ if (typeof(BX.CrmProductEditor) === "undefined")
 
                     /***!!!!!!!!!!!!!!!!!!!!!!!!!!!!*************************************/
                     callAjaxForProperty(data.product[0].id);
-                    console.log(data.product[0].id);
+                  //  console.log(data.product[0].id);
                     /**************************************????????????????????????????**/
 
 				}
@@ -5547,19 +5547,12 @@ function callAjaxForProperty(productID) {
 function step2(data) {
 
     //кол-во строк в таблице с товарами
-    let str = $('#deal_product_editor_product_table > tbody tr').length;
     let elem;
 
-    if(str > 1){
-        elem = '#deal_product_editor_product_table tbody tr:last-child input.add-store-value';
-      //  $(elem).css('border','1px dashed red');
-    }
-    else{
-        elem = '#deal_product_editor_product_table tbody tr:first-child input.add-store-value ';
-       // $(elem).css('border','1px dashed darkblue');
-    }
+    if($('#lead_product_editor_product_table').length > 0) elem = $('#lead_product_editor_product_table tbody tr:last-child input.add-store-value');
+    if($('#deal_product_editor_product_table').length > 0) elem = $('#deal_product_editor_product_table tbody tr:last-child input.add-store-value');
 
     //заполнение поля
-    $(elem).val(Number(data.STORE_QUANTITY));
+    if(elem) $(elem).val(Number(data.STORE_QUANTITY));
 
 }
