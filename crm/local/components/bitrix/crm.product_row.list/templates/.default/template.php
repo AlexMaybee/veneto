@@ -542,8 +542,8 @@ $jsEventsManagerId = 'PageEventsManager_'.$arResult['COMPONENT_ID'];
 				<td class="crm-item-cell crm-item-price"><span id="<?=$priceTitleId?>" class="crm-item-cell-text"><?=GetMessage('CRM_PRODUCT_ROW_COL_TTL_PRICE', array('#CURRENCY#' => " ($currencyText)"))?></span></td>
 				<td class="crm-item-cell crm-item-qua" ><span class="crm-item-cell-text"><?=htmlspecialcharsbx(GetMessage('CRM_PRODUCT_ROW_COL_TTL_QUANTITY'))?></span></td>
 
-
-                <td class="crm-item-cell crm-item-store" style="text-align: right"><span class="crm-item-cell-text">Склад</span></td>
+                <?//mycode - мой пункт в шапке?>
+                <td class="crm-item-cell crm-item-store" style="text-align: right"><span class="crm-item-cell-text">Доступное количество</span></td>
 
 
 				<td class="crm-item-cell crm-item-unit"><span class="crm-item-cell-text"><?=htmlspecialcharsbx(GetMessage('CRM_PRODUCT_ROW_COL_TTL_MEASURE'))?></span></td>
@@ -963,15 +963,11 @@ $jsEventsManagerId = 'PageEventsManager_'.$arResult['COMPONENT_ID'];
 					</span>
 			</td>
 
-            <?//mycode вывод кол-ва единиц из поля "Доступное кол-во"
-            $prosuctMass1 = getProductCode($productID);
-            //  print_r($prosuctMass1);
-            ?>
+            <?//mycode вывод кол-ва единиц из поля "Доступное кол-во"?>
             <td class="crm-item-cell crm-item-store">
 
                     <span class="crm-item-cell-text">
-                        <?//=$prosuctMass1['ID']?>
-						<input id="<?=$rowID.'_STORE';?>" type="text" class="crm-item-table-inp add-store-value" value="<?/*=$prosuctMass1['CATALOG_QUANTITY']*/?>">
+						<input id="<?=$rowID.'_STORE';?>" type="text" class="crm-item-table-inp add-store-value" value="">
 					</span>
 
             </td>
