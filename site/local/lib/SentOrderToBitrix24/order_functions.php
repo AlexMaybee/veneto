@@ -67,25 +67,19 @@ class SentOrderToB24{
         //Способ доставки
         $shipment_method = '';
         switch($orderData['SHIPPING_METHOD']){
-            case 1: //Без доставки
-                $shipment_method = 72; //Самовывоз
-                break;
             case 7: //Курьер
                 $shipment_method = 70; //Курьерская доставка
                 break;
             case 9: //Самовывоз
-                $shipment_method = 134; //Самовывоз из магазина???
-                break;
-            case 2: //Курьер ???
-                $shipment_method = 60; //Мост Экспресс????
+                $shipment_method = 72; //Самовывоз
                 break;
         }
 
         //Способ оплаты
         $payment_method = '';
         switch($orderData['PAYMENT_METHOD']){
-            case 7: //Внутренний счет ????
-                $payment_method = 132; //Кредит Маркет ???
+            case 7: //Внутренний счет
+                $payment_method = 76; //Безналичный расчет
                 break;
             case 8: //Оплата при доставке
                 $payment_method = 270;
@@ -141,7 +135,7 @@ class SentOrderToB24{
                 "CONTACT_ID" => $contactID,
                 "CATEGORY_ID" => 0, //направление интернет-магазин
                 "SOURCE_ID" => 'STORE', // источник - интернет-магазин
-              //  "ASSIGNED_BY_ID" => 11074, //мой ид
+                "ASSIGNED_BY_ID" => 4, //Анастасия Алябушева, 11074 - мой ид
                 "UF_CRM_1553272714" => $orderData['ORDER_ID'], //ID заказа на сайте
                 "UF_CRM_1553273189" => $order_status, //статус заказа на сайте
                 "UF_CRM_1424960096" => 68, //Источник заказа - Сайт

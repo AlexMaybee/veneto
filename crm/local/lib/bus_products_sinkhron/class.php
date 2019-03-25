@@ -106,6 +106,7 @@ class Bus_Products_Import{
                 'NAME' => $productOfferMassive['NAME'],
                 'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
+                'ACTIVE' => $productOfferMassive['ACTIVE'], //активность Y/N
 //                'DETAIL_TEXT' => $productOfferMassive['PARENT_PRODUCT_DESCR'],//описание вставлено из товара (который здесь является разделом)
 //                "DETAIL_TEXT_TYPE" => 'html',
                 //'PREVIEW_PICTURE' => $productOfferMassive['DETAIL_PICTURE_PATH'], //картинка маленькая
@@ -215,6 +216,7 @@ class Bus_Products_Import{
                 'NAME' => $productOfferMassive['NAME'],
                 'MEASURE' => 9, //Ед. измерения, шт.
                 'SECTION_ID' => $section_id,
+                'ACTIVE' => $productOfferMassive['ACTIVE'], //активность Y/N
 //                'DETAIL_TEXT' => $productOfferMassive['PARENT_PRODUCT_DESCR'],//описание вставлено из товара (который здесь является разделом)
 //                "DETAIL_TEXT_TYPE" => 'html',
                 'PRICE' => $productOfferMassive['CATALOG_PRICE_1'], //Базовая цена

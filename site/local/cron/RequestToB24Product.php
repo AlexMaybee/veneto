@@ -1,4 +1,5 @@
 <?php
+$_SERVER['DOCUMENT_ROOT'] = '/home/bitrix/www';
 require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
 use Bitrix\Main\Web\HttpClient;
 
@@ -20,7 +21,7 @@ foreach ($products as $number => $prodData){
 
     //делим запрос на части, т.к. больше 61 join mysql не поддерживает
     $offerFields_part1 = array(
-        'ID','NAME',
+        'ID','NAME','ACTIVE',
         'PROPERTY_122','PROPERTY_123','PROPERTY_124',
         'PROPERTY_172','PROPERTY_173','PROPERTY_174','PROPERTY_175','PROPERTY_176','PROPERTY_177','PROPERTY_178','PROPERTY_179','PROPERTY_180',
     );
@@ -228,6 +229,7 @@ $sent_res = sentDataToCRM(['action' => 'import_products_and_sale_offers', 'produ
 
 print_r($sent_res);
 loggingResult($sent_res); //логирование результата
+//loggingResult($products); //логирование результата
 
 //echo '<pre>';
 //print_r($prod_predlojenie);
@@ -238,7 +240,7 @@ loggingResult($sent_res); //логирование результата
 function getProducts($iblock){
     $products = [];
     $arSelect = Array("ID",'NAME'/*,'PROPERTY_399'*/); // Уменьшил количество полей; PROPERTY_399 - Описание товара на русском
-    $arFilter = Array("IBLOCK_ID"=> $iblock, "ACTIVE"=>"Y"/*,"ACTIVE_DATE"=>"Y","SECTION_ID"=> array(17, 18, 40)*/);
+    $arFilter = Array("IBLOCK_ID"=> $iblock, /*"ACTIVE"=>"Y","ACTIVE_DATE"=>"Y","SECTION_ID"=> array(17, 18, 40)*/);
     $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
     while($ob = $res->GetNextElement())
     {
@@ -251,7 +253,7 @@ function getProducts($iblock){
 //получение товарных предложений
 function getSaleOffersByFilter($prodID,$offerFields){
     $iblockId = 9;
-    $offersFilter = array('ACTIVE' => 'Y'/*, 'ACTIVE_DATE' => 'Y', '>CATALOG_PRICE_1' => 0*/);
+    $offersFilter = array(/*'ACTIVE' => 'Y', 'ACTIVE_DATE' => 'Y', '>CATALOG_PRICE_1' => 0*/);
     $propertyFields = array('ID', 'PROPERTY_TYPE', 'MULTIPLE', 'USER_TYPE');
     $res = CCatalogSku::getOffersList(
         $prodID,$iblockId, $offersFilter, $offerFields, array(), array('USE_PROPERTY_ID' => 'Y', 'PROPERTY_FIELDS' => $propertyFields));
