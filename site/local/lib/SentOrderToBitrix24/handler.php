@@ -17,18 +17,20 @@ Bitrix\Main\Loader::includeModule("sale");
 Bitrix\Main\Loader::includeModule("iblock");
 
 //ставим событие на создание заказа, а потом вызываем функцию
-//$eventManager = \Bitrix\Main\EventManager::getInstance();
-//$eventManager->addEventHandler('sale', 'OnSaleOrderSaved', ['SentOrderToB24','mainMethod']);
+$eventManager = \Bitrix\Main\EventManager::getInstance();
+$eventManager->addEventHandler('sale', 'OnSaleOrderSaved', ['SentOrderToB24','mainMethod']);
 
 
-$obj = new SentOrderToB24;
+//echo 'YO!';
+
+//$obj = new SentOrderToB24;
 //echo $obj->test();
-
-
-$order_id = 6695;
-$orderMassive = $obj->mainMethod($order_id);
-
-echo '<pre>';
-print_r($orderMassive);
-echo '</pre>';
+//
+//
+//$order_id = 6695;
+//$orderMassive = $obj->mainMethod($order_id);
+//
+//echo '<pre>';
+//print_r($orderMassive);
+//echo '</pre>';
 

@@ -1,4 +1,20 @@
 <?php
+//require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
+
+
+use CIBlockElement as Element;
+use CIBlockSection as Section;
+use Bitrix\Main\Loader,
+    Bitrix\Main;
+use Bitrix\Sale,
+    Bitrix\Main\Application,
+    Bitrix\Main\Web\Uri,
+    Bitrix\Main\Web\HttpClient,
+    Bitrix\Sale\Order,
+    Bitrix\Main\Event; //это для получения объкта заказа
+
+Bitrix\Main\Loader::includeModule("sale");
+Bitrix\Main\Loader::includeModule("iblock");
 
 class SentOrderToB24{
 
@@ -8,7 +24,6 @@ class SentOrderToB24{
 
     //главный метод, который будет запускать вложенные функции
     public function mainMethod($order_id){
-
 
         //получаем боолльшой массив со всех ахинеей по заказу
         $order_massive = Bitrix\Sale\Order::load($order_id);
@@ -151,7 +166,14 @@ class SentOrderToB24{
         //создаем сделку
         $arResult = $this->createDeal($newDealFields, $products);
 
-        return [$orderData,$contactID,$arResult];
+        //$this->logData([$orderData,$newDealFields,'res' => $arResult]);
+
+        $result = false;
+        if($arResult['result'] > 0) return $result = 'Order #'.$orderData['ORDER_ID'].' was sent to CRM!';
+        else $result = 'Error with sent order #'.$orderData['ORDER_ID'];
+        //return [$orderData,$newDealFields,'res' => $arResult];
+        return $result;
+
     }
 
 
@@ -196,6 +218,7 @@ class SentOrderToB24{
                 "PHONE" =>   array(array("VALUE" => $data['PHONE'], "VALUE_TYPE" => "WORK")),
                 "EMAIL" =>   array(array("VALUE" => $data['EMAIL'], "VALUE_TYPE" => "WORK")),
                 "NAME" => $data['USER_NAME'],
+                "ASSIGNED_BY_ID" => 4, //Анастасия Алябушева
             ),
         );
 
@@ -267,4 +290,22 @@ class SentOrderToB24{
         return $res;
     }
 
+    private function logData($data){
+            $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/SentOrderToBitrix24/TestOrderLog.log';
+            file_put_contents($file, print_r($data, true), FILE_APPEND | LOCK_EX);
+    }
+
 }
+
+
+
+////test!!!
+//$obj = new SentOrderToB24;
+////echo $obj->test();
+//
+//
+//$order_id = 6748;
+//$orderMassive = $obj->mainMethod($order_id);
+//echo '<pre>';
+//print_r($orderMassive);
+//echo '</pre>';
