@@ -4,6 +4,9 @@ CJSCore::Init(array("jquery"));
 
 include_once 'functions.php';
 
+//статус сделки в статус заказа
+//include_once $_SERVER['DOCUMENT_ROOT'] . "/local/lib/bus_products_sinkhron/order_status_sent_to_bus.php";
+
 AddEventHandler('main', 'OnBeforeProlog', 'checkCrmStoreDeal');
 
 

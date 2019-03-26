@@ -3,3 +3,24 @@ Array
     [date] => 26.03.2019 16:28:16
     [result] => Order #6760 was sent to CRM!
 )
+Array
+(
+    [date] => 26.03.2019 16:46:25
+    [result] => Order #6761 was sent to CRM!
+)
+Array
+(
+    [date] => 26.03.2019 16:53:49
+    [result] => Order #6760 was sent to CRM!
+)
+Array
+(
+    [date] => 26.03.2019 16:54:55
+    [result] => Order #6761 was sent to CRM!
+)
+---
+Array
+(
+    [date] => 26.03.2019 17:01:15
+    [result] => Order #6762 was sent to CRM!
+)
