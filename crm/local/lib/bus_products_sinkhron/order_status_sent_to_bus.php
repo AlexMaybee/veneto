@@ -32,23 +32,48 @@ class MyDealEventsClass{
 
                         //проверяем стадии, чтобы была смена на WON с любой другой
                         if($arFields['STAGE_ID'] === 'WON' && ($arFields['STAGE_ID'] != $dealResult[0]['STAGE_ID'])){
-                            //делаем запрос на сайт и меняем статус
 
+                            //делаем запрос на сайт и меняем статус на WON
                             $siteFields = [
                                 'order_id' => $dealResult[0]['UF_CRM_1553272714'],
-                                'status_id' => $orderStatus,
+                                'status_id' => $orderStatus['site_order_status'],
                             ];
 
                             $sendRes = json_decode(json_encode(self::sentDataToCRM($siteFields)), true);
 
-                            if($sendRes['result'] > 0) $arFields['UF_CRM_1553273189'] = 338; //Статус заказа "Выполнен"
+                            if($sendRes['result'] != false) $arFields['UF_CRM_1553273189'] = $orderStatus['crm_order_status']; //Статус заказа "Выполнен"
+                            else  self::logData(['date' => date('d.m.Y H:i:s'),'result' => $sendRes]);
 
-                            $arFields['BUS_UPDATE_RESULT'] = $sendRes;
+                            //$arFields['BUS_UPDATE_RESULT'] = $sendRes;
 
-                           // $arFields['TEST_STAGE_ID'] = 'WOOOON!';
                         }
+                        //если смена на стадию проигрыша - пока отменил
+//                        elseif($arFields['STAGE_ID'] === 'LOSE' && ($arFields['STAGE_ID'] != $dealResult[0]['STAGE_ID'])){
+//                            //делаем запрос на сайт и меняем статус на LOSE
+//                            $siteFields = [
+//                                'order_id' => $dealResult[0]['UF_CRM_1553272714'],
+//                                'status_id' => $orderStatus['site_order_status'],
+//                            ];
+//                            $sendRes = json_decode(json_encode(self::sentDataToCRM($siteFields)), true);
+//                            if($sendRes['result'] != false) $arFields['UF_CRM_1553273189'] = $orderStatus['crm_order_status']; //Статус заказа "Выполнен"
+//
+//                            $arFields['BUS_UPDATE_RESULT'] = $sendRes;
+//
+//                        }
                         else{
-                            $arFields['UF_CRM_1553273189'] = 336; //Иначе статус заказа всегда "Принят, ожидается оплата"
+
+                            //делаем запрос на сайт и меняем статус на WON
+                            $siteFields = [
+                                'order_id' => $dealResult[0]['UF_CRM_1553272714'],
+                                'status_id' => $orderStatus['site_order_status'],
+                            ];
+
+                            $sendRes = json_decode(json_encode(self::sentDataToCRM($siteFields)), true);
+
+                            if($sendRes['result'] != false) $arFields['UF_CRM_1553273189'] = $orderStatus['crm_order_status']; //Статус заказа "Выполнен"
+                            else  self::logData(['date' => date('d.m.Y H:i:s'),'result' => $sendRes]);
+
+                          //  $arFields['UF_CRM_1553273189'] = $orderStatus['crm_order_status']; //Иначе статус заказа всегда "Принят, ожидается оплата"
                         }
                     }
 
@@ -56,7 +81,7 @@ class MyDealEventsClass{
 
             }
 
-            self::logData(['updated_fields' => $arFields,'already_data' => $dealResult]);
+            //self::logData(['updated_fields' => $arFields,'already_data' => $dealResult]);
 
         }
 
@@ -66,7 +91,7 @@ class MyDealEventsClass{
 
 
     private function logData($arFields){
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/TestLog.log';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/bus_products_sinkhron/errorLog.log';
         file_put_contents($file, print_r($arFields, true), FILE_APPEND | LOCK_EX);
     }
 
@@ -92,17 +117,24 @@ class MyDealEventsClass{
 
     //конверт стадии сделки в статус заказа
     private function switchDealStageToOrderStatus($dealStageId){
-        $orderStatus = 'N';
+        $siteOrderStatus = 'N';
+        $crmOrderStatus = 336; //Принят, ожидается оплата
         switch($dealStageId){
             case 'WON':
-                $orderStatus = 'F';
+                $siteOrderStatus = 'F';
+                $crmOrderStatus = 338; //Выполнен
                 break;
-            case 'LOSE': //добавлен просто так, если вдруг придется проигрышную сделку прикручивать.
-                $orderStatus = 'NONE';
+//            case 'LOSE': //добавлен просто так, если вдруг придется проигрышную сделку прикручивать.
+//                $siteOrderStatus = 'ABORT';
+//                $crmOrderStatus = 339; //Отменен
+//                break;
+            default:
+                $siteOrderStatus = 'N';
+                $crmOrderStatus = 336; //Принят, ожидается оплата
                 break;
 
         }
-        return $orderStatus;
+        return ['site_order_status' => $siteOrderStatus, 'crm_order_status' => $crmOrderStatus];
     }
 
 }

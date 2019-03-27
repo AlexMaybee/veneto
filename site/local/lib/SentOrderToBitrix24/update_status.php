@@ -25,18 +25,26 @@ $request_list = json_decode(json_encode($data), true);
 
 $res = null;
 
-//if($request_list['order_id'] > 0 ) {
-//    $order = Sale\Order::load($request_list['order_id']);
-//
-//    $order->setField('STATUS_ID', $request_list['status_id']);
-//    $order->save();
-//    $res = $order->save();
-//}
-//
-echo json_encode(['result' => 1]);
+if($request_list['order_id'] > 0 ) {
+    $order = Sale\Order::load($request_list['order_id']);
+
+    $order->setField('STATUS_ID', $request_list['status_id']);
+    $order->save();
+    $res = $order->save();
+
+    $answ = [
+        'result' => false,
+        'error' => false,
+    ];
+    if(!$res->isSuccess()) $answ['error'] = $res->getError(); //Проверка, что статус обновлен
+    $answ['result'] = $res->isSuccess();
+}
+
+echo json_encode($answ);
+//echo json_encode(['result' => 1]);
 //print_r($res);
 
-$file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/SentOrderToBitrix24/IncomeData.log';
-file_put_contents($file, print_r($request_list, true), FILE_APPEND | LOCK_EX);
+$file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/SentOrderToBitrix24/UpdateOrderStatusesFromCrm.log';
+file_put_contents($file, print_r(['date' => $request_list,'result' => $answ], true), FILE_APPEND | LOCK_EX);
 
 ?>
