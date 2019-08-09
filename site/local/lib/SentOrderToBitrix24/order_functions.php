@@ -18,6 +18,8 @@ Bitrix\Main\Loader::includeModule("iblock");
 
 class SentOrderToB24{
 
+    const IBLOCK_REGIONS = 49;
+
     public function test(){
         return 'Test Message of SentOrderToB24 class!';
     }
@@ -42,6 +44,7 @@ class SentOrderToB24{
 
         $orderData['USER_NAME'] = trim($propertyCollection->getItemByOrderPropertyId(27)->getValue()); //имя, оно в свойствах № 27
         $orderData['USER_CITY'] = trim($propertyCollection->getItemByOrderPropertyId(28)->getValue()); //город, оно в свойствах № 28
+
         //  $orderData['user_phone'] = $propertyCollection->getItemByOrderPropertyId(29)->getValue(); //тел, оно в свойствах № 29
         //  $orderData['user_email'] = $propertyCollection->getItemByOrderPropertyId(30)->getValue(); //email, оно в свойствах № 30
         $orderData['USER_COMMENTS'] = trim($order_massive->getField("USER_DESCRIPTION")); //комментарии пользователя
@@ -62,7 +65,34 @@ class SentOrderToB24{
         $orderData['SHIPPING_ADDRESS'] = $propertyCollection->getAddress()->getValue();
 
 
+
         //Синхрон полей
+
+        //область
+        $regionMassive = self::getCityInfoblockCatalogByValue(['NAME' => $orderData['USER_CITY'],'IBLOCK_ID' => self::IBLOCK_REGIONS]); //город, оно в свойствах № 28
+        if($regionMassive)
+            $regionName = explode(' ',$regionMassive['SECTION_NAME_REGION'])[0];
+
+
+
+        //получаем список полей из битрикса и привязіваем по значению при помощи explode( названия областей должны быть одинаковы и там и там)
+        $orderData['USER_REGION_ID'] = '';
+
+        $urlQ = 'crm.deal.userfield.list';
+        $b24FieldsMassive =  self::askBitrix24($urlQ,[]);
+        if($b24FieldsMassive['result']){
+            foreach ($b24FieldsMassive['result'] as $field){
+                if($field['FIELD_NAME'] == 'UF_CRM_1433939257'){
+                    foreach ($field['LIST'] as $enumValue){
+                        if(trim($regionName) == trim($enumValue['VALUE']))
+                            $orderData['USER_REGION_ID'] = $enumValue['ID']; //передаем ID области из Б24
+                    }
+                }
+            }
+        }
+
+
+
 
         //Статус заказа
         $order_status = '';
@@ -110,6 +140,7 @@ class SentOrderToB24{
                 break;
         }
 
+
         //Синхрон полей
 
 
@@ -156,6 +187,7 @@ class SentOrderToB24{
                 "UF_CRM_1424960096" => 68, //Источник заказа - Сайт
                 "UF_CRM_1425638753" => $orderData['SHIPPING_ADDRESS'], //Адрес
                 "UF_CRM_1425639048" => $orderData['USER_CITY'], //Город
+                "UF_CRM_1433939257" => $orderData['USER_REGION_ID'], //Область
                 "UF_CRM_1553274251" => $orderData['USER_COMMENTS'], //Клмментарий к заказу от клиента
                 "UF_CRM_1424784665" => $shipment_method, //Способ доставки
                 "UF_CRM_1427290501" => [$payment_method], //Способ оплаты В МАССИВЕ ОБЯЗАТЕЛЬНО!!!
@@ -166,7 +198,7 @@ class SentOrderToB24{
         //создаем сделку
         $arResult = $this->createDeal($newDealFields, $products);
 
-        //$this->logData([$orderData,$newDealFields,'res' => $arResult]);
+        $this->logData([$orderData,$newDealFields,'res' => $arResult]);
 
         $result = false;
         if($arResult['result'] > 0) return $result = 'Order #'.$orderData['ORDER_ID'].' was sent to CRM!';
@@ -294,6 +326,20 @@ class SentOrderToB24{
             $file = $_SERVER['DOCUMENT_ROOT'].'/local/lib/SentOrderToBitrix24/TestOrderLog.log';
             file_put_contents($file, print_r($data, true), FILE_APPEND | LOCK_EX);
     }
+
+
+    //09.08.2019 Получение области по имени города из ИБ 49
+    private function getCityInfoblockCatalogByValue($filter){
+        $result = false;
+        $resMassive = CIBlockElement::GetList(["SORT"=>"ASC"],$filter,false,false,[/*'ID','NAME',*/'IBLOCK_SECTION_ID']);
+        if($arRes = $resMassive->getNext()) {
+            $catalogMAssive = CIBlockSection::GetByID($arRes['IBLOCK_SECTION_ID']);
+            if($arCatalog = $catalogMAssive->getNext()) $arRes['SECTION_NAME_REGION'] = $arCatalog['NAME'];
+            $result = $arRes;
+        }
+        return $result;
+    }
+
 
 }
 
